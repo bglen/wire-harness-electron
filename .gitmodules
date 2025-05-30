@@ -1,0 +1,3 @@
+[submodule "wire-harness-core"]
+	path = wire-harness-core
+	url = https://github.com/bglen/wire-harness-core
