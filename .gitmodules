@@ -1,0 +1,3 @@
+[submodule "/Users/bglen/Documents/github/wire-harness-electron/wire-harness-app/src/wire-harness-core"]
+	path = /Users/bglen/Documents/github/wire-harness-electron/wire-harness-app/src/wire-harness-core
+	url = https://github.com/bglen/wire-harness-core
