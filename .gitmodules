@@ -1,3 +1,3 @@
-[submodule "wire-harness-app/src/wire-harness-core"]
-	path = wire-harness-app/src/wire-harness-core
+[submodule "electron-app/src/wire-harness-core"]
+	path = electron-app/src/wire-harness-core
 	url = https://github.com/bglen/wire-harness-core
