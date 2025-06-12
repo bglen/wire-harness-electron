@@ -1,4 +1,5 @@
-import { initializeGrid } from './wire-harness-core/grid.js';
+import * as fabric from 'fabric';
+import { initializeGrid } from '../../wire-harness-core/src/ui/canvas/grid.js';
 
 window.onload = () => {
     const canvasElement = document.getElementById("fabricCanvas");

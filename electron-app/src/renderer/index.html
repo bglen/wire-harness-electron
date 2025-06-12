@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html>
   <head>
     <meta charset="UTF-8" />
     <title>Wire Harness Design Tool</title>
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'">
-    <script src="https://cdn.jsdelivr.net/npm/fabric@latest/dist/index.min.js"></script>
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+
+    <link href="./assets/main.css" type="text/css" rel="stylesheet" />
 
     <style>
       /* Make sure html/body/canvas fill the entire window */
@@ -37,8 +37,15 @@
 
   <body>
     <canvas id="fabricCanvas"></canvas>
+
+    <input type="file" id="projectFileInput" accept=".json,.yaml,.yml" />
+    <button onclick="loadProject()">Load Project</button>
+    <div id="status"></div>
+
+    <script type="module" src="./loadProject.js"></script>
+
   </body>
 
-   <script type="module" src="./renderer.js"></script>
+    <script type="module" src="./src/renderer.js"></script>
 
 </html>
