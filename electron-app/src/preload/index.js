@@ -12,9 +12,10 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
 
-    // Settings Window
+    // Settings Window and file dialogs
     contextBridge.exposeInMainWorld('electronAPI', {
-      openSettings: () => ipcRenderer.invoke('open-settings')
+      openSettings: () => ipcRenderer.invoke('open-settings'),
+      openProject: () => ipcRenderer.invoke('open-project')
     })
 
   } catch (error) {

@@ -7,6 +7,8 @@ import * as fabric from 'fabric';
 import { initializeGrid } from '../../wire-harness-core/src/ui/canvas/grid.js';
 import { initializeCanvasControls } from '../../wire-harness-core/src/ui/canvas/controls.js';
 import { initializeStatusBar } from '../../wire-harness-core/src/ui/canvas/statusBar.js';
+import { parseProjectFile } from '../../wire-harness-core/src/core/io/loader.js';
+import { setProject } from '../../wire-harness-core/src/core/state/projectState.js';
 
 // tell Shoelace where its assets live (icons, etc.)
 setBasePath('/shoelace');
@@ -37,11 +39,33 @@ function initMainWindow() {
     initializeStatusBar(canvas);
 
     // Sidebar Buttons
-    const btn = document.getElementById('settings-btn')
+    const settingsBtn = document.getElementById('settings-btn')
+    const openProjectBtn = document.getElementById('open-project-btn')
 
-    btn.addEventListener('click', () => {
+    settingsBtn.addEventListener('click', () => {
         window.electronAPI.openSettings()
             .catch(err => console.error('Failed to open settings:', err))
+    })
+
+    openProjectBtn.addEventListener('click', async () => {
+        try {
+            const result = await window.electronAPI.openProject()
+            if (!result || result.canceled) return
+
+            if (result.error) {
+                console.error('Failed to read file:', result.error)
+                return
+            }
+            const parse = parseProjectFile(result.data)
+            if (parse.error) {
+                console.error('Failed to parse project:', parse.error, parse.details)
+            } else {
+                setProject(parse.data)
+                console.log('Loaded project:', parse.data.project.name)
+            }
+        } catch (err) {
+            console.error('Open project failed:', err)
+        }
     })
 }
 
