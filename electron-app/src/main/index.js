@@ -3,17 +3,27 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
+let settingsWindow
+
+// disable all GPU usage and ANGLE/EGL probing
+app.disableHardwareAcceleration()
+
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
+    minWidth: 800,     // ← smallest allowed width
+    minHeight: 600,    // ← smallest allowed height
     show: false,
+    backgroundColor: '#1e1e1e',   // ← dark grey right from the start
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      sandbox: false,
+      contextIsolation: true,
+      nodeIntegration: false,
     }
   })
 
@@ -72,3 +82,45 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+function createSettingsWindow() {
+  if (settingsWindow && !settingsWindow.isDestroyed()) {
+    settingsWindow.focus()
+    return
+  }
+
+  settingsWindow = new BrowserWindow({
+    width: 700,
+    height: 500,
+    minWidth: 700,     // ← smallest allowed width
+    minHeight: 500,    // ← smallest allowed height
+    show: false,
+    backgroundColor: '#1e1e1e',   // ← dark grey right from the start
+    webPreferences: {
+      preload: join(__dirname, '../preload/index.js'),
+      contextIsolation: true,
+      nodeIntegration: false,
+    }
+  })
+
+  // HMR for renderer base on electron-vite cli.
+  // Load the remote URL for development or the local html file for production.
+   const devUrl = process.env.ELECTRON_RENDERER_URL
+  if (is.dev && devUrl) {
+    settingsWindow.loadURL(`${devUrl}/settings.html`)
+  } else {
+    settingsWindow.loadFile(join(__dirname, '../renderer/settings.html'))
+  }
+
+  settingsWindow.once('ready-to-show', () => {
+    settingsWindow.show()
+  })
+
+  settingsWindow.on('closed', () => {
+    settingsWindow = null
+  })
+}
+
+// Listen for renderer’s “open-settings” request
+ipcMain.handle('open-settings', () => {
+  createSettingsWindow()
+})

@@ -1,5 +1,6 @@
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { resolve } from 'path';
 
 export default defineConfig({
   main: {
@@ -8,9 +9,7 @@ export default defineConfig({
     ]
   },
   preload: {
-    plugins: [
-      externalizeDepsPlugin()
-    ]
+    plugins: []
   },
   renderer: {
     plugins: [
@@ -24,6 +23,16 @@ export default defineConfig({
         ]
       })
       // …any other renderer plugins here
-    ]
+    ],
+    build: {
+      rollupOptions: {
+        input: {
+          // Entry for main window
+          main: resolve(__dirname, 'src/renderer/index.html'),
+          // Entry for settings window
+          settings: resolve(__dirname, 'src/renderer/settings.html')
+        }
+      }
+    }
   }
 });
