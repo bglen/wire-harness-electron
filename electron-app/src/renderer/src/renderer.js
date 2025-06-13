@@ -6,6 +6,8 @@ import { setBasePath, getBasePath } from '@shoelace-style/shoelace/dist/shoelace
 import * as fabric from 'fabric';
 import { initializeGrid } from '../../wire-harness-core/src/ui/canvas/grid.js';
 import { initializeCanvasControls } from '../../wire-harness-core/src/ui/canvas/controls.js';
+import { initializeStatusBar } from '../../wire-harness-core/src/ui/canvas/statusBar.js';
+
 
 
 // tell Shoelace where its assets live (icons, etc.)
@@ -26,4 +28,5 @@ window.onload = () => {
 
     initializeGrid(canvas, canvasElement, gridPresets);
     initializeCanvasControls(canvas);
+    initializeStatusBar(canvas);
 };

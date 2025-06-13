@@ -67,6 +67,27 @@
       width: 100% !important;
       height: 100% !important;
     }
+
+    /* Status bar overlay */
+    #status-bar {
+      position: absolute;
+      display: flex;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1.5em;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 0.9em;
+      line-height: 1.2em;
+      padding: 0 0.5em;
+      pointer-events: none;
+      user-select: none;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--sl-font-sans);
+
+    }
   </style>
 
 </head>
@@ -96,14 +117,13 @@
       <sl-tooltip content="Settings" placement="right">
         <sl-icon-button name="gear" label="Settings"></sl-icon-button>
       </sl-tooltip>
-
       
-
     </aside>
 
     <!-- Main Canvas -->
     <main id="canvas-pane"></main>
       <canvas id="fabricCanvas"></canvas>
+      <div id="status-bar">Grid Size: -- | X: --, Y: --</div>
     </main>
 
   </div>
