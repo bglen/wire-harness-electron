@@ -7,7 +7,7 @@ Electron-specific functions for loading project files
 
 */
 
-//import fs from 'fs';
+import * as fs from 'fs';
 import { parseProjectFile } from '../../wire-harness-core/src/core/io/loader.js';
 import { setProject, getProject } from '../../wire-harness-core/src/core/state/projectState.js';
 

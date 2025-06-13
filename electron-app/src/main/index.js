@@ -1,4 +1,5 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
+import * as fs from 'fs'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
@@ -123,4 +124,23 @@ function createSettingsWindow() {
 // Listen for renderer’s “open-settings” request
 ipcMain.handle('open-settings', () => {
   createSettingsWindow()
+})
+
+// Show a dialog to select a project file and return its contents
+ipcMain.handle('open-project', async () => {
+  const { canceled, filePaths } = await dialog.showOpenDialog({
+    title: 'Open Project',
+    filters: [{ name: 'Project Files', extensions: ['proj_sch'] }],
+    properties: ['openFile']
+  })
+  if (canceled || filePaths.length === 0) {
+    return { canceled: true }
+  }
+  const filePath = filePaths[0]
+  try {
+    const data = fs.readFileSync(filePath, 'utf-8')
+    return { canceled: false, filePath, data }
+  } catch (err) {
+    return { canceled: false, filePath, error: err.message }
+  }
 })
