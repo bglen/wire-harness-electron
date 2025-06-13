@@ -110,7 +110,22 @@
 
       <!-- Save -->
       <sl-tooltip content="Save Project" placement="right">
-        <sl-icon-button name="save" label="Save Project"></sl-icon-button>
+        <sl-icon-button name="box-arrow-down" label="Save Project"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Import Netlist -->
+      <sl-tooltip content="Import Netlist" placement="right">
+        <sl-icon-button name="card-list" label="Import Netlist"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Edit Library -->
+      <sl-tooltip content="Edit Library" placement="right">
+        <sl-icon-button name="book" label="Edit Library"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Edit Design Rule Check -->
+      <sl-tooltip content="Edit Design Rule Check" placement="right">
+        <sl-icon-button name="clipboard-check" label="Edit Design Rule Check"></sl-icon-button>
       </sl-tooltip>
 
       <!-- Settings -->
@@ -125,6 +140,41 @@
       <canvas id="fabricCanvas"></canvas>
       <div id="status-bar">Grid Size: -- | X: --, Y: --</div>
     </main>
+
+    <!-- Right Side Bar -->
+    <aside id="sidebar">
+
+      <!-- Select / Move -->
+      <sl-tooltip content="Select / Move" placement="left">
+        <sl-icon-button name="arrows-move" label="Select / Move"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Place Component -->
+      <sl-tooltip content="Place Component" placement="left">
+        <sl-icon-button name="plug-fill" label="Place Component"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Draw Wire -->
+      <sl-tooltip content="Draw Wire" placement="left">
+        <sl-icon-button name="pencil" label="Draw Wire"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Net Label -->
+      <sl-tooltip content="Net Label" placement="left">
+        <sl-icon-button name="tag" label="Net Label"></sl-icon-button>
+      </sl-tooltip>
+
+      <!-- Add Text -->
+      <sl-tooltip content="Add Text" placement="left">
+        <sl-icon-button name="type" label="Add Text"></sl-icon-button>
+      </sl-tooltip>
+      
+      <!-- Add Comment -->
+      <sl-tooltip content="Add Comment" placement="left">
+        <sl-icon-button name="chat-left-text" label="Add Comment"></sl-icon-button>
+      </sl-tooltip>
+
+    </aside>
 
   </div>
 </body>
